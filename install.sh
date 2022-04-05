@@ -29,6 +29,14 @@ install_ssl(){
     read domain
     mkdir -p /etc/nginx/ssl/$domain
 
+    green "======================"
+    green " 输入ssl证书email"
+    green "======================"
+    read email
+
+    acme.sh --register-account $email
+ 
+
     ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
     ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
         --key-file   /etc/nginx/ssl/$domain/$domain.key \
@@ -63,6 +71,13 @@ EOF
     systemctl start nginx
 
     curl https://get.acme.sh | sh
+
+    green "======================"
+    green " 输入ssl证书email"
+    green "======================"
+    read email
+
+    acme.sh --register-account $email
  
     mkdir -p /etc/nginx/ssl/$domain
 

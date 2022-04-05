@@ -34,8 +34,7 @@ install_ssl(){
     green "======================"
     read email
 
-    acme.sh --register-account $email
- 
+    ~/.acme.sh/acme.sh --register-account -m $email
 
     ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
     ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
@@ -77,7 +76,7 @@ EOF
     green "======================"
     read email
 
-    acme.sh --register-account $email
+    ~/.acme.sh/acme.sh --register-account -m $email
  
     mkdir -p /etc/nginx/ssl/$domain
 

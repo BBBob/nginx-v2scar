@@ -22,6 +22,20 @@ function yellow(){
     echo -e "\033[33m\033[01m $1 \033[0m"
 }
 
+install_ssl(){
+    green "======================"
+    green " 输入解析到此VPS的域名"
+    green "======================"
+    read domain
+    mkdir -p /etc/nginx/ssl/$domain
+
+    ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
+    ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
+        --key-file   /etc/nginx/ssl/$domain/$domain.key \
+        --fullchain-file /etc/nginx/ssl/$domain/fullchain.cer \
+        --reloadcmd  "systemctl restart nginx"
+
+}
 
 install_domain(){
     green "======================"
@@ -108,31 +122,6 @@ install_nginx(){
     wget https://github.com/BBBob/nginx-v2scar/raw/master/web.zip
     unzip web.zip
  
-    
-cat > /etc/nginx/conf/nginx.conf <<-EOF
-user  root;
-worker_processes  1;
-error_log  /etc/nginx/logs/error.log warn;
-pid        /etc/nginx/logs/nginx.pid;
-events {
-    worker_connections  1024;
-}
-http {
-    include       /etc/nginx/conf/mime.types;
-    default_type  application/octet-stream;
-    log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
-                      '\$status \$body_bytes_sent "\$http_referer" '
-                      '"\$http_user_agent" "\$http_x_forwarded_for"';
-    access_log  /etc/nginx/logs/access.log  main;
-    sendfile        on;
-    #tcp_nopush     on;
-    keepalive_timeout  120;
-    client_max_body_size 20m;
-    #gzip  on;
-    include /etc/nginx/conf.d/*.conf;
-}
-EOF
-
     systemctl enable nginx
     systemctl start nginx
 
@@ -158,6 +147,7 @@ start_menu(){
     green " 2. ssl域名解析"
     green " 3. 安装nginx"
     green " 4. 安装v2scar"
+    green " 5. 安装ssl证书"
     yellow " 0. 退出脚本"
     echo
     read -p "请输入数字:" num
@@ -174,6 +164,9 @@ start_menu(){
     ;;
     4)
     install_v2scar
+    ;;
+    5)
+    install_ssl
     ;;
     0)
     exit 1

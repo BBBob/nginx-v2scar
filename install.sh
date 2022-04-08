@@ -148,6 +148,8 @@ install_nginx(){
 install_v2scar(){
     yum install epel-release -y
     yum install -y wget git docker docker-compose
+    systemctl enable docker
+    systemctl start docker
     git clone https://github.com/Ehco1996/v2scar.git
 }
 

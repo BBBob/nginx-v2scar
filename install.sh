@@ -35,6 +35,7 @@ install_ssl(){
     read email
 
     ~/.acme.sh/acme.sh --register-account -m $email
+    ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 
     ~/.acme.sh/acme.sh  --issue  -d $domain  --webroot /etc/nginx/html/
     ~/.acme.sh/acme.sh  --installcert  -d  $domain   \
@@ -77,6 +78,7 @@ EOF
     read email
 
     ~/.acme.sh/acme.sh --register-account -m $email
+    ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
  
     mkdir -p /etc/nginx/ssl/$domain
 

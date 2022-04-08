@@ -139,7 +139,6 @@ install_nginx(){
     systemctl enable nginx
     systemctl start nginx
 
-    install_domain 
 
 }
 
@@ -158,16 +157,17 @@ start_menu(){
     green " ===================================="
     echo
     green " 1. 安装nginx+v2scar"
-    green " 2. ssl域名解析"
-    green " 3. 安装nginx"
-    green " 4. 安装v2scar"
-    green " 5. 安装ssl证书"
+    green " 2. 配置nginx并安装ssl证书"
+    green " 3. 仅安装nginx"
+    green " 4. 仅安装v2scar"
+    green " 5. 仅安装ssl证书"
     yellow " 0. 退出脚本"
     echo
     read -p "请输入数字:" num
     case "$num" in
     1)
     install_nginx
+    install_domain 
     install_v2scar
     ;;
     2)

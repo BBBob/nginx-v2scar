@@ -42,7 +42,7 @@ install_ssl(){
         --key-file   /etc/nginx/ssl/$domain/$domain.key \
         --fullchain-file /etc/nginx/ssl/$domain/fullchain.cer \
         --reloadcmd  "systemctl restart nginx"
-
+    systemctl restart nginx
 }
 
 install_domain(){
@@ -123,6 +123,7 @@ server {
 }
 EOF
 
+    systemctl restart nginx
 }
 
 #安装nginx

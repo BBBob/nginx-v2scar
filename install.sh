@@ -146,6 +146,7 @@ install_nginx(){
 }
 
 install_v2scar(){
+    setsebool -P httpd_can_network_connect 1
     yum install epel-release -y
     yum install -y wget git docker docker-compose
     systemctl enable docker

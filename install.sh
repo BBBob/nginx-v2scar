@@ -131,6 +131,7 @@ install_nginx(){
  
     systemctl stop firewalld
     systemctl disable firewalld
+    yum install epel-release -y
     yum install -y wget unzip nginx
 
     mkdir -p /etc/nginx/html
@@ -138,7 +139,7 @@ install_nginx(){
     rm -f /etc/nginx/html/*
     wget https://github.com/BBBob/nginx-v2scar/raw/master/web.zip
     unzip web.zip
- 
+    cd ~ 
     systemctl enable nginx
     systemctl start nginx
 
@@ -147,7 +148,6 @@ install_nginx(){
 
 install_v2scar(){
     setsebool -P httpd_can_network_connect 1
-    yum install epel-release -y
     yum install -y wget git docker docker-compose
     systemctl enable docker
     systemctl start docker

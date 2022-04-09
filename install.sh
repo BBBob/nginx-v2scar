@@ -139,6 +139,7 @@ install_nginx(){
     rm -f /etc/nginx/html/*
     wget https://github.com/BBBob/nginx-v2scar/raw/master/web.zip
     unzip web.zip
+    mv web/* .
     cd ~ 
     systemctl enable nginx
     systemctl start nginx

@@ -148,7 +148,7 @@ install_nginx(){
 
 install_v2scar(){
     setsebool -P httpd_can_network_connect 1
-    yum install -y wget git docker docker-compose
+    yum install -y wget git docker docker-compose vim
     systemctl enable docker
     systemctl start docker
     git clone https://github.com/Ehco1996/v2scar.git

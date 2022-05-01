@@ -184,6 +184,7 @@ start_menu(){
     green " 3. 仅安装nginx"
     green " 4. 仅安装v2scar"
     green " 5. 仅安装ssl证书"
+    green " 6. 不安装nginx,进行其他项"
     yellow " 0. 退出脚本"
     echo
     read -p "请输入数字:" num
@@ -204,6 +205,10 @@ start_menu(){
     ;;
     5)
     install_ssl $1 $2 $3
+    ;;
+    6)
+    install_domain $1 $2 $3 $4
+    install_v2scar $1 $2 $3 $4 $5 $6
     ;;
     0)
     exit 1

@@ -77,6 +77,7 @@ EOF
     green "======================"
     email=$1
     path=$3
+    port=$4
 
     ~/.acme.sh/acme.sh --register-account -m $email
     ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
@@ -164,6 +165,7 @@ install_v2scar(){
     sed -i "s/10086:10086/$port:$port/g" docker-compose.yml
     sed -i "s#\# command: \[\"v2ray\",\"-config=https://xxx.com\"\]#command: \[\"v2ray\",\"-config=$vmess_config\"\]#g" docker-compose.yml
     sed -i "s#V2SCAR_API_ENDPOINT: \"\"#V2SCAR_API_ENDPOINT: \"$v2scar_config\"#g" docker-compose.yml
+    sed -i "s/container_name/# container_name/g" docker-compose.yml
     docker-compose up -d
 
 }
